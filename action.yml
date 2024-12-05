@@ -1,0 +1,24 @@
+# action.yml
+name: 'HCP Vault Secrets Reader'
+description: 'This action logs into HCP Vault using client credentials and retrieves secrets for a specified app'
+inputs:
+  client-id:
+    description: 'HCP Vault client ID used for authentication'
+    required: true
+  client-secret:
+    description: 'HCP Vault client secret used for authentication'
+    required: true
+  secrets:
+    description: 'JSON object representing the apps and their associated keys to retrieve secrets from'
+    required: true
+  target:
+    description: 'Specifies where the secret should be exposed (out / env)'
+    required: false
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.client-id }}
+    - ${{ inputs.client-secret }}
+    - ${{ inputs.secrets }}
+    - ${{ inputs.target }}
